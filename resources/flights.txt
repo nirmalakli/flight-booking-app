@@ -1,0 +1,9 @@
+Santacruz,IGIA,Air India,5000,150,1
+Santacruz,KIA,Air India,4000,120,1
+Santacruz,Meenambakkam,Air India,4000,120,1
+Santacruz,PIA,Air India,2000,60,1
+IGIA,Rajeev Gandhi IA,Air India,6000,180,1
+Rajeev Gandhi IA,KIA,Air India,6000,180,1
+Rajeev Gandhi IA,CIA,Air India,5000,150,1
+KIA,CIA,Air India,3000,90,1
+CIA,Santacruz,Air India,6000,180,1
