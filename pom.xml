@@ -4,8 +4,8 @@
 	<groupId>org.nirmal.ideas</groupId>
 	<artifactId>flight-boooking-app</artifactId>
 	<version>0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>	
-	<build>		
+	<packaging>jar</packaging>
+	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -16,7 +16,7 @@
 				</configuration>
 			</plugin>
 		</plugins>
-	</build>	
+	</build>
 	<dependencies>
 		<dependency>
 			<groupId>asm</groupId>
@@ -43,5 +43,12 @@
 			<artifactId>jersey-core</artifactId>
 			<version>1.19</version>
 		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 </project>
