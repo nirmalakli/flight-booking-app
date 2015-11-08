@@ -15,7 +15,7 @@ public class FlightSearch {
 	private final City destnCity;
 	
 	private FlightSearchAlgorithm searchAlgo = new DjksrtaShortestPathFlightSearchAlgorithm();
-	private FlightBookingDao flightBookingDao = new ClassPathFileBookingDao();
+	private FlightBookingDao flightBookingDao = ClassPathFileBookingDao.getInstance();
 	
 	public FlightSearch(City srcCity, City destnCity) {
 		this.srcCity = srcCity;

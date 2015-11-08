@@ -13,5 +13,9 @@ public interface FlightBookingDao {
 	List<Airport> getAirports();
 
 	List<Flight> getFlights();
+	
+	void updateFlight(Flight updatedFlight);
+
+	void deleteFlight(Flight flight);
 
 }

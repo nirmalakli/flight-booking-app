@@ -26,7 +26,7 @@ public class DjksrtaShortestPathFlightSearchAlgorithmTest {
 	
 	@Before
 	public void setup() {
-		flightBookingDao = new ClassPathFileBookingDao();
+		flightBookingDao = ClassPathFileBookingDao.getInstance();
 		
 		srcCity = getCity(flightBookingDao.getCities(), "Mumbai" );
 		destnCity = getCity(flightBookingDao.getCities(), "Cochin" );
