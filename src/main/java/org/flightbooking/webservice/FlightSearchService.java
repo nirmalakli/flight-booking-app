@@ -1,7 +1,6 @@
 package org.flightbooking.webservice;
 
 import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,6 +15,7 @@ import org.flightbooking.search.FlightIternary;
 import org.flightbooking.search.FlightSearch;
 import org.flightbooking.search.FlightSearchCriteria;
 import org.flightbooking.search.FlightSearchCriteria.Preference;
+import org.flightbooking.webservice.helpers.JSONUtils;
 
 @Path("/flightsearch")
 public class FlightSearchService {
@@ -37,11 +37,7 @@ public class FlightSearchService {
 			FlightSearch flightSearch = new FlightSearch(srcCity , destnCity);
 			FlightIternary flightIternary = flightSearch.search(new FlightSearchCriteria(Preference.MIN_HOP));
 			
-			//if(flightIternary.isAvailable()) {
 			 String response = JSONUtils.getFlightString(flightIternary.getFlights());
-			/*} else {
-				//response = 
-			}*/
 			
 			return Response.status(200).entity(response).build();
 		} catch (Exception e) {

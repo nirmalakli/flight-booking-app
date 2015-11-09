@@ -16,6 +16,8 @@ import javax.ws.rs.core.Response;
 import org.flightbooking.dao.ClassPathFileBookingDao;
 import org.flightbooking.dao.FlightBookingDao;
 import org.flightbooking.domain.Flight;
+import org.flightbooking.webservice.helpers.FlightsDaoHelper;
+import org.flightbooking.webservice.helpers.JSONUtils;
 
 @Path("/flights")
 public class FlightResource {
@@ -26,8 +28,8 @@ public class FlightResource {
 	@GET
 	@Produces (MediaType.APPLICATION_JSON)
 	public Response getAllFlights() {
-		
-		return Response.status(200).entity(get()).build();
+		String json = convertAllFlightsToJSON();
+		return Response.status(200).entity(json).build();
 	}
 	
 	// URL: /flights/id
@@ -35,7 +37,8 @@ public class FlightResource {
 	@GET
 	@Produces (MediaType.APPLICATION_JSON)
 	public Response getFlightById(@PathParam("id") String flightId) {
-		return Response.status(200).entity(get(flightId)).build();
+		String json = convertFlightToJSON(flightId);
+		return Response.status(200).entity(json).build();
 	}
 	
 	// URL: /flights/id
@@ -80,7 +83,7 @@ public class FlightResource {
 	}
 	
 	
-	String get() {
+	private String convertAllFlightsToJSON() {
 		List<Flight> flights = flightBookingDao.getFlights();
 		try {
 			return JSONUtils.getFlightString(flights);
@@ -90,7 +93,7 @@ public class FlightResource {
 		} 
 	}
 	
-	String get(String id) {
+	private String convertFlightToJSON(String id) {
 		
 		try {
 			Flight flight = daoHelper.getFlight(id);
@@ -100,33 +103,4 @@ public class FlightResource {
 			return "{'Flight' : 'None bcoz - '" + e.getMessage() + "}";
 		} 
 	}
-	
-	/*String getFlightString(Flight flight) throws JsonGenerationException, JsonMappingException, IOException {
-		return new ObjectMapper().writeValueAsString(flight);
-	}
-	
-
-	String getFlightString(List<Flight> flights) throws JsonGenerationException, JsonMappingException, IOException {
-		return new ObjectMapper().writeValueAsString(flights);
-	}*/
-	
-/*	private Flight getFlight(String flightId) {
-		List<Flight> flights = flightBookingDao.getFlights();
-		for(Flight f : flights) {
-			if(f.getId().equals(flightId)) {
-				return f;
-			}
-		}
-		return null;
-	}
-	
-	private Flight amendFlight(Flight flight) {
-		flightBookingDao.updateFlight(flight);
-		return getFlight(flight.getId());
-	}
-	
-	private void deleteFlight(Flight flight) {
-		flightBookingDao.deleteFlight(flight);
-	}*/
-	
 }

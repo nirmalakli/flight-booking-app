@@ -4,18 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArrayList;
 
-import org.flightbooking.dao.FlightBookingDao;
 import org.flightbooking.domain.Airline;
 import org.flightbooking.domain.Airport;
 import org.flightbooking.domain.City;

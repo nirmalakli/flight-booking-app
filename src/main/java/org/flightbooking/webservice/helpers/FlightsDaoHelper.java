@@ -1,4 +1,4 @@
-package org.flightbooking.webservice;
+package org.flightbooking.webservice.helpers;
 
 import java.util.List;
 
