@@ -13,7 +13,8 @@
 					data: "",
 					success: populateFlightTable,
 					error: function (jqXHR, exception) {
-						alert("Error fetching flight data from server. HTTP status = " + jqXHR.status)
+						alert("Error fetching flight data from server. HTTP status = " 
+								+ jqXHR.status + " " + jqXHR.responseText)
 					}
 				})
 			})
@@ -97,6 +98,14 @@
 			function displayFlight() {
 				$("#outputDiv").show()
 				$('#flight_display').show()
+			}
+			
+			function isInt(n){
+			    return Number(n) === n && n % 1 === 0;
+			}
+
+			function isFloat(n){
+			    return n === Number(n) && n % 1 !== 0;
 			}
 			
 		</script>

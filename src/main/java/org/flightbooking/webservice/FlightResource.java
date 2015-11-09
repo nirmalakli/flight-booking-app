@@ -1,6 +1,5 @@
 package org.flightbooking.webservice;
 
-import java.io.IOException;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -14,9 +13,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.map.JsonMappingException;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.flightbooking.dao.ClassPathFileBookingDao;
 import org.flightbooking.dao.FlightBookingDao;
 import org.flightbooking.domain.Flight;
@@ -25,6 +21,7 @@ import org.flightbooking.domain.Flight;
 public class FlightResource {
 	
 	private FlightBookingDao flightBookingDao = ClassPathFileBookingDao.getInstance();
+	private FlightsDaoHelper daoHelper = new FlightsDaoHelper(flightBookingDao);
 	
 	@GET
 	@Produces (MediaType.APPLICATION_JSON)
@@ -53,7 +50,7 @@ public class FlightResource {
 			@FormParam("duration") String duration) {
 		
 		try {
-			Flight flight = getFlight(flightId);
+			Flight flight = daoHelper.getFlight(flightId);
 			
 			Flight amendFlight = new Flight(
 					flightId, 
@@ -64,9 +61,9 @@ public class FlightResource {
 					Integer.valueOf(duration), 
 					Integer.valueOf(hops));
 			
-			String flightData = getFlightString(amendFlight(amendFlight));
+			String flightData = JSONUtils.getFlightString(daoHelper.amendFlight(amendFlight));
 			return Response.status(200).entity(flightData).build();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return Response.status(500).entity("{'Error' : '" + e.getMessage() + "'}").build();
 		}
 	}
@@ -78,7 +75,7 @@ public class FlightResource {
 	public Response deleteFlight(@PathParam("id") String flightId) {
 		
 		// It's OK to send just the id for deletion
-		deleteFlight(new Flight(flightId, null, null, null, 0, 0, 0));
+		daoHelper.deleteFlight(new Flight(flightId, null, null, null, 0, 0, 0));
 		return Response.status(200).entity("{\"status\" : \"ok\"}").build();
 	}
 	
@@ -86,7 +83,7 @@ public class FlightResource {
 	String get() {
 		List<Flight> flights = flightBookingDao.getFlights();
 		try {
-			return getFlightString(flights);
+			return JSONUtils.getFlightString(flights);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{'Flights' : 'None bcoz - '" + e.getMessage() + "}";
@@ -96,24 +93,24 @@ public class FlightResource {
 	String get(String id) {
 		
 		try {
-			Flight flight = getFlight(id);
-			return getFlightString(flight);
+			Flight flight = daoHelper.getFlight(id);
+			return JSONUtils.getFlightString(flight);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{'Flight' : 'None bcoz - '" + e.getMessage() + "}";
 		} 
 	}
 	
-	String getFlightString(Flight flight) throws JsonGenerationException, JsonMappingException, IOException {
+	/*String getFlightString(Flight flight) throws JsonGenerationException, JsonMappingException, IOException {
 		return new ObjectMapper().writeValueAsString(flight);
 	}
 	
 
 	String getFlightString(List<Flight> flights) throws JsonGenerationException, JsonMappingException, IOException {
 		return new ObjectMapper().writeValueAsString(flights);
-	}
+	}*/
 	
-	private Flight getFlight(String flightId) {
+/*	private Flight getFlight(String flightId) {
 		List<Flight> flights = flightBookingDao.getFlights();
 		for(Flight f : flights) {
 			if(f.getId().equals(flightId)) {
@@ -130,9 +127,6 @@ public class FlightResource {
 	
 	private void deleteFlight(Flight flight) {
 		flightBookingDao.deleteFlight(flight);
-	}
+	}*/
 	
-	public static void main(String[] args) {
-		System.out.println(new FlightResource().get());
-	}
 }
